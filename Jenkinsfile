@@ -58,7 +58,7 @@ pipeline{
 // 	    }
 //     }	  
 	
-    stage('copy war) {
+    stage('copy war') {
       steps{
 	sh 'cp $FILE_PATH/"${fname}"*.war .'
       }
