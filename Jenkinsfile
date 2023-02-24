@@ -13,7 +13,7 @@ pipeline{
 	        DB_IMG= 'mysql'
 	        MYSQL_PASS= 'root'
 	        MYSQL_PORT= 5000
-	        FILE_PATH= "/home/vboxuser/code"
+	        FILE_PATH= "/home/vboxuser/code/target"
 
 // 	        docker= sh(script: 'sshpass -p s1 ssh vboxuser@192.168.56.102 docker --version',returnStdout: true)
 // 	        file_path=""
@@ -46,18 +46,25 @@ pipeline{
 // 	    }
 //     } 
 	  
-    stage('maven location') {
-	    steps {
-		    sh'''
-		      pwd
-		      ls
-		      mvn clean -f $FILE_PATH 
-		      mvn install -f $FILE_PATH 
-		      cp $FILE_PATH/target/"${fname}"*.war .
-		      '''
-	    }
-    }	  
-	  
+//     stage('maven location') {
+// 	    steps {
+// 		    sh'''
+// 		      pwd
+// 		      ls
+//  		      mvn clean -f $FILE_PATH 
+//  		      mvn install -f $FILE_PATH 
+// 		      cp $FILE_PATH/target/"${fname}"*.war .
+// 		      '''
+// 	    }
+//     }	  
+	
+    stage('copy war) {
+      steps{
+	sh 'cp $FILE_PATH/"${fname}"*.war .'
+      }
+    }
+		
+	
 	  
     stage('docker build'){
       steps{
